@@ -1,0 +1,139 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_learningjourney/result_pending
+
+    Neutral page shown while manual grading of the attempt is outstanding.
+
+    Context variables required for this template:
+    * verdict string One of pass, fail, pending or nomark.
+    * cssvars string Validated CSS custom property declarations.
+    * title string Page heading.
+    * message string Cleaned body message.
+    * islamic string Cleaned supplementary message.
+    * hasislamic bool Whether a supplementary message is present.
+    * advice string Cleaned study advice.
+    * hasadvice bool Whether study advice is present.
+    * coursecomplete string Cleaned course completed message.
+    * hascoursecomplete bool Whether the course completed message applies.
+    * activity string Name of the quiz just submitted.
+    * coursename string Name of the course.
+    * scorecards object Wrapper holding the result cards.
+    * hascards bool Whether any result card is shown.
+    * starrating object Wrapper holding the star rating.
+    * hasstars bool Whether the star rating is shown.
+    * badgeblock object Wrapper holding the badges.
+    * hasbadges bool Whether any badge is shown.
+    * progress object Wrapper holding the progress bar data.
+    * hasprogress bool Whether the progress bar is shown.
+    * actions array Ordered page actions.
+    * hasactions bool Whether any action is available.
+    * countdown object Wrapper holding the automatic redirect data.
+    * hascountdown bool Whether the automatic redirect is enabled.
+    * hasbackground bool Whether a decorative background image is configured.
+    * hassound bool Whether the optional applause control is offered.
+    * soundlabel string Label of the applause control.
+    * hastrophy bool Whether the decorative trophy is shown.
+    * trophylabel string Accessible name of the decorative trophy.
+    * iconstyle string Icon style, one of emoji, fontawesome or none.
+    * showicon bool Whether the outcome icon is rendered.
+
+    Example context (json):
+    {
+        "verdict": "pending",
+        "cssvars": "--ljy-theme:#1d6f42;",
+        "title": "Answers received",
+        "message": "<p>Your answers are being reviewed.</p>",
+        "islamic": "<p>May Allah increase you in beneficial knowledge.</p>",
+        "hasislamic": true,
+        "advice": "",
+        "hasadvice": false,
+        "coursecomplete": "",
+        "hascoursecomplete": false,
+        "activity": "Unit 1 quiz",
+        "coursename": "Arabic level 1",
+        "hascards": true,
+        "scorecards": {"cards": [{"label": "Final score", "value": "82 / 100", "sublabel": "", "hassublabel": false}]},
+        "hasstars": true,
+        "starrating": {"arialabel": "3 out of 5 stars", "starlist": [{"earned": true}, {"earned": true}, {"earned": true}, {"earned": false}, {"earned": false}]},
+        "hasbadges": false,
+        "badgeblock": {"badges": []},
+        "hasprogress": true,
+        "progress": {"percent": 20, "percentlabel": "20% complete", "unitlabel": "Lesson 1 of 5", "hasunitlabel": true, "progressline": "Only 4 lessons remaining.", "hasline": true, "arialabel": "Course completion"},
+        "hasactions": true,
+        "actions": [{"url": "https://example.com/course/view.php?id=2", "label": "Return to course", "primary": true, "id": "course"}],
+        "hascountdown": false,
+        "countdown": {"seconds": 15, "url": "https://example.com/mod/page/view.php?id=9", "staylabel": "Stay on this page", "arialabel": "Time remaining", "initial": "Continuing in 15 seconds"},
+        "hasbackground": false,
+        "hassound": false,
+        "soundlabel": "Play sound",
+        "hastrophy": false,
+        "trophylabel": "Trophy",
+        "iconstyle": "fontawesome",
+        "showicon": true
+    }
+}}
+<div class="ljy-page ljy-page--pending{{#hasbackground}} ljy-page--image{{/hasbackground}}"
+     style="{{{cssvars}}}"
+     data-ljy-iconstyle="{{iconstyle}}"
+     role="region"
+     aria-labelledby="ljy-title-{{uniqid}}">
+
+    {{#showicon}}
+        <div class="ljy-icon ljy-icon--pending" aria-hidden="true">
+            <span class="ljy-icon__emoji">&#8987;</span>
+            <svg class="ljy-icon__svg" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path fill="currentColor" d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm1 11H9v-2h2V6h2z"/>
+            </svg>
+        </div>
+    {{/showicon}}
+
+    <h1 class="ljy-title" id="ljy-title-{{uniqid}}" tabindex="-1">{{title}}</h1>
+    <p class="ljy-activity">{{activity}}</p>
+
+    <div class="ljy-message">
+        {{{message}}}
+        {{#hasislamic}}<div class="ljy-message__extra">{{{islamic}}}</div>{{/hasislamic}}
+    </div>
+
+    {{#hascards}}
+        {{#scorecards}}
+            {{> local_learningjourney/partial_scorecards }}
+        {{/scorecards}}
+    {{/hascards}}
+
+    {{#hasadvice}}
+        <aside class="ljy-advice">{{{advice}}}</aside>
+    {{/hasadvice}}
+
+    {{#hascoursecomplete}}
+        <div class="ljy-coursecomplete">{{{coursecomplete}}}</div>
+    {{/hascoursecomplete}}
+
+    {{#hasactions}}
+        {{> local_learningjourney/partial_actions }}
+    {{/hasactions}}
+
+    {{#hascountdown}}
+        {{#countdown}}
+            <div class="ljy-countdown" data-ljy-countdown data-seconds="{{seconds}}" data-url="{{url}}">
+                <p class="ljy-countdown__text" aria-live="polite" data-ljy-countdown-text>{{initial}}</p>
+                <button type="button" class="ljy-action ljy-action--ghost" data-ljy-stay>{{staylabel}}</button>
+            </div>
+        {{/countdown}}
+    {{/hascountdown}}
+</div>

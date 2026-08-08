@@ -1,0 +1,8 @@
+# Build and editor artefacts that must never be committed.
+node_modules/
+vendor/
+.idea/
+.vscode/
+*.log
+*.swp
+.DS_Store

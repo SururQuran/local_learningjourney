@@ -1,0 +1,527 @@
+/* Learning Journey plugin styles.
+ *
+ * Runtime colours arrive as CSS custom properties from validated settings; the
+ * values below are fallbacks only. Logical properties are used throughout so
+ * the layout mirrors correctly in right to left languages, and every animation
+ * is gated behind a reduced motion query.
+ */
+
+.ljy-page {
+    background-color: var(--ljy-bg, #fff);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    border-radius: 0.75rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04), 0 8px 24px rgba(0, 0, 0, 0.06);
+    margin-block: 1.5rem;
+    margin-inline: auto;
+    max-inline-size: 60rem;
+    padding-block: 2rem 2.25rem;
+    padding-inline: 1.25rem;
+    position: relative;
+    text-align: center;
+}
+
+.ljy-page--image {
+    background-image: var(--ljy-bg-image, none);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.ljy-page--image::before {
+    background-color: var(--ljy-bg, #fff);
+    border-radius: inherit;
+    content: "";
+    inset: 0;
+    opacity: 0.88;
+    position: absolute;
+}
+
+.ljy-page--image > * {
+    position: relative;
+}
+
+.ljy-visually-hidden {
+    block-size: 1px;
+    clip-path: inset(50%);
+    inline-size: 1px;
+    overflow: hidden;
+    position: absolute;
+    white-space: nowrap;
+}
+
+/* Outcome icon and trophy. */
+
+.ljy-icon,
+.ljy-trophy {
+    color: var(--ljy-theme, #1d6f42);
+    line-height: 1;
+    margin-block-end: 0.75rem;
+}
+
+.ljy-icon__svg,
+.ljy-trophy svg {
+    block-size: 3rem;
+    inline-size: 3rem;
+}
+
+.ljy-trophy svg {
+    block-size: 4rem;
+    inline-size: 4rem;
+}
+
+.ljy-icon__emoji {
+    display: none;
+    font-size: 2.75rem;
+}
+
+.ljy-page[data-ljy-iconstyle="emoji"] .ljy-icon__emoji {
+    display: inline-block;
+}
+
+.ljy-page[data-ljy-iconstyle="emoji"] .ljy-icon__svg {
+    display: none;
+}
+
+.ljy-icon--pass {
+    color: var(--ljy-theme, #1d6f42);
+}
+
+.ljy-icon--fail {
+    color: #8a5a00;
+}
+
+.ljy-icon--pending {
+    color: #4a5568;
+}
+
+/* Headings and messages. */
+
+.ljy-title {
+    color: var(--ljy-theme, #1d6f42);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-block-end: 0.35rem;
+}
+
+.ljy-title:focus-visible {
+    outline: 3px solid var(--ljy-theme, #1d6f42);
+    outline-offset: 4px;
+}
+
+.ljy-activity {
+    font-size: 0.95rem;
+    margin-block-end: 1rem;
+    opacity: 0.8;
+}
+
+.ljy-message {
+    margin-inline: auto;
+    max-inline-size: 44rem;
+}
+
+.ljy-message__extra {
+    font-style: italic;
+    margin-block-start: 0.5rem;
+    opacity: 0.9;
+}
+
+/* Result cards. */
+
+.ljy-cards {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    margin-block: 1.75rem;
+    margin-inline: 0;
+}
+
+.ljy-card {
+    background-color: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 0.5rem;
+    padding-block: 0.9rem;
+    padding-inline: 0.75rem;
+}
+
+.ljy-card__label {
+    display: block;
+    font-size: 0.8rem;
+    letter-spacing: 0.02em;
+    opacity: 0.75;
+    text-transform: uppercase;
+}
+
+.ljy-card__value {
+    display: block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-block-start: 0.25rem;
+    margin-inline-start: 0;
+}
+
+.ljy-card__sublabel {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-block-start: 0.2rem;
+    opacity: 0.75;
+}
+
+/* Star rating. */
+
+.ljy-stars__row {
+    display: inline-flex;
+    gap: 0.35rem;
+}
+
+.ljy-star {
+    color: var(--ljy-progress-bg, #e9ecef);
+    display: inline-flex;
+}
+
+.ljy-star svg {
+    block-size: 2rem;
+    inline-size: 2rem;
+}
+
+.ljy-star--earned {
+    color: var(--ljy-theme, #1d6f42);
+}
+
+/* Badges. */
+
+.ljy-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+    list-style: none;
+    margin-block: 1.5rem;
+    padding-inline-start: 0;
+}
+
+.ljy-badge {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    inline-size: 8rem;
+}
+
+.ljy-badge__image {
+    block-size: 5.5rem;
+    inline-size: 5.5rem;
+    object-fit: contain;
+}
+
+.ljy-badge__medal {
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.04);
+    block-size: 5.5rem;
+    border-radius: 50%;
+    color: var(--ljy-theme, #1d6f42);
+    display: flex;
+    inline-size: 5.5rem;
+    justify-content: center;
+}
+
+.ljy-badge__medal svg {
+    block-size: 3rem;
+    inline-size: 3rem;
+}
+
+.ljy-badge__name {
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+/* Progress. */
+
+.ljy-progress {
+    margin-block: 1.75rem;
+}
+
+.ljy-progress__unit {
+    font-weight: 600;
+    margin-block-end: 0.5rem;
+}
+
+.ljy-progress__track {
+    background-color: var(--ljy-progress-bg, #e9ecef);
+    block-size: 0.85rem;
+    border-radius: 0.5rem;
+    margin-inline: auto;
+    max-inline-size: 32rem;
+    overflow: hidden;
+}
+
+.ljy-progress__fill {
+    background-color: var(--ljy-progress-fill, #1d6f42);
+    block-size: 100%;
+    display: block;
+    inline-size: var(--ljy-progress-value, 0%);
+}
+
+.ljy-progress__percent {
+    font-size: 0.85rem;
+    margin-block-start: 0.4rem;
+    opacity: 0.8;
+}
+
+.ljy-progress__text {
+    margin-block-start: 0.25rem;
+}
+
+/* Advice and course completion. */
+
+.ljy-advice,
+.ljy-coursecomplete {
+    background-color: rgba(0, 0, 0, 0.02);
+    border-inline-start: 4px solid var(--ljy-theme, #1d6f42);
+    border-radius: 0.35rem;
+    margin-block: 1.25rem;
+    margin-inline: auto;
+    max-inline-size: 44rem;
+    padding-block: 0.75rem;
+    padding-inline: 1rem;
+    text-align: start;
+}
+
+/* Actions. */
+
+.ljy-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-block-start: 1.75rem;
+}
+
+.ljy-action {
+    align-items: center;
+    border: 2px solid var(--ljy-button-bg, #1d6f42);
+    border-radius: 0.5rem;
+    color: var(--ljy-button-bg, #1d6f42);
+    display: inline-flex;
+    font-weight: 600;
+    justify-content: center;
+    min-block-size: 44px;
+    min-inline-size: 44px;
+    padding-block: 0.65rem;
+    padding-inline: 1.35rem;
+    text-align: center;
+    text-decoration: none;
+}
+
+.ljy-action--primary {
+    background-color: var(--ljy-button-bg, #1d6f42);
+    color: var(--ljy-button-fg, #fff);
+    font-size: 1.05rem;
+    padding-inline: 1.75rem;
+}
+
+.ljy-action--ghost {
+    background-color: transparent;
+    border-width: 1px;
+    font-weight: 500;
+}
+
+.ljy-action:hover,
+.ljy-action:focus {
+    text-decoration: underline;
+}
+
+.ljy-action:focus-visible {
+    outline: 3px solid var(--ljy-theme, #1d6f42);
+    outline-offset: 3px;
+}
+
+/* Sound and countdown. */
+
+.ljy-sound {
+    margin-block-start: 1rem;
+}
+
+.ljy-countdown {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-block-start: 1.25rem;
+}
+
+.ljy-countdown__text {
+    font-size: 0.9rem;
+    margin-block-end: 0;
+    opacity: 0.85;
+}
+
+/* Decorative canvas used by the celebration module. */
+
+.ljy-canvas {
+    inset-block-start: 0;
+    inset-inline-start: 0;
+    pointer-events: none;
+    position: fixed;
+    z-index: 1;
+}
+
+/* Right to left adjustments. */
+
+[dir="rtl"] .ljy-icon--directional {
+    transform: scaleX(-1);
+}
+
+/* Responsive refinements. */
+
+@media (min-width: 768px) {
+    .ljy-title {
+        font-size: 2.25rem;
+    }
+
+    .ljy-page {
+        padding-block: 3rem 3.25rem;
+        padding-inline: 2.5rem;
+    }
+
+    .ljy-cards {
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+    }
+}
+
+@media (max-width: 480px) {
+    .ljy-actions {
+        flex-direction: column;
+    }
+
+    .ljy-action {
+        inline-size: 100%;
+    }
+
+    .ljy-badge {
+        inline-size: 6.5rem;
+    }
+}
+
+/* Motion. */
+
+@media (prefers-reduced-motion: no-preference) {
+    .ljy-progress__fill {
+        animation: ljy-fill 900ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+
+    .ljy-star--earned {
+        animation: ljy-pop 450ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .ljy-star--earned:nth-child(2) {
+        animation-delay: 100ms;
+    }
+
+    .ljy-star--earned:nth-child(3) {
+        animation-delay: 200ms;
+    }
+
+    .ljy-star--earned:nth-child(4) {
+        animation-delay: 300ms;
+    }
+
+    .ljy-star--earned:nth-child(5) {
+        animation-delay: 400ms;
+    }
+
+    .ljy-trophy,
+    .ljy-icon {
+        animation: ljy-rise 500ms ease-out both;
+    }
+}
+
+@keyframes ljy-fill {
+    from {
+        inline-size: 0;
+    }
+
+    to {
+        inline-size: var(--ljy-progress-value, 0%);
+    }
+}
+
+@keyframes ljy-pop {
+    from {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes ljy-rise {
+    from {
+        opacity: 0;
+        transform: translateY(0.5rem);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Contrast and forced colours. */
+
+@media (prefers-contrast: more) {
+    .ljy-card,
+    .ljy-action,
+    .ljy-advice,
+    .ljy-coursecomplete {
+        border-width: 2px;
+    }
+
+    .ljy-card__label,
+    .ljy-card__sublabel,
+    .ljy-activity,
+    .ljy-progress__percent {
+        opacity: 1;
+    }
+}
+
+@media (forced-colors: active) {
+    .ljy-page,
+    .ljy-card,
+    .ljy-action,
+    .ljy-progress__track,
+    .ljy-badge__medal {
+        border-color: currentColor;
+        border-style: solid;
+        border-width: 1px;
+    }
+
+    .ljy-progress__fill,
+    .ljy-star--earned {
+        background-color: Highlight;
+        color: Highlight;
+        forced-color-adjust: none;
+    }
+
+    .ljy-page--image::before {
+        display: none;
+    }
+}
+
+@media print {
+    .ljy-actions,
+    .ljy-canvas,
+    .ljy-countdown,
+    .ljy-sound {
+        display: none;
+    }
+
+    .ljy-page {
+        box-shadow: none;
+    }
+}

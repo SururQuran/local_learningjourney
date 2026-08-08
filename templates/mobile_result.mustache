@@ -1,0 +1,56 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_learningjourney/mobile_result
+
+    Learning Journey view rendered inside the Moodle Mobile App.
+
+    Context variables required for this template:
+    * hasdata bool Whether progress data is available.
+    * nodata string Message shown when no data is available.
+    * title string Page heading.
+    * unitlabel string Description of the learner position in the course.
+    * hasunitlabel bool Whether the unit label is known.
+    * progressline string Sentence describing remaining work.
+    * percent int Whole number percentage of course completion.
+    * percentlabel string Readable form of the percentage.
+
+    Example context (json):
+    {
+        "hasdata": true,
+        "nodata": "There is nothing to show yet.",
+        "title": "Learning Journey",
+        "unitlabel": "Lesson 1 of 5",
+        "hasunitlabel": true,
+        "progressline": "Only 4 lessons remaining.",
+        "percent": 20,
+        "percentlabel": "20% complete"
+    }
+}}
+<ion-card>
+    <ion-card-header>
+        <ion-card-title>{{title}}</ion-card-title>
+        {{#hasunitlabel}}<ion-card-subtitle>{{unitlabel}}</ion-card-subtitle>{{/hasunitlabel}}
+    </ion-card-header>
+    <ion-card-content>
+        {{#hasdata}}
+            <core-progress-bar [progress]="{{percent}}" [text]="'{{percentlabel}}'"></core-progress-bar>
+            <p>{{progressline}}</p>
+        {{/hasdata}}
+        {{^hasdata}}<p>{{nodata}}</p>{{/hasdata}}
+    </ion-card-content>
+</ion-card>

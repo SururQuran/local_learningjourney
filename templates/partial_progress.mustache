@@ -1,0 +1,60 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_learningjourney/partial_progress
+
+    Accessible course progress bar and its supporting text.
+
+    The visual fill is driven by a CSS custom property so the bar can animate
+    without any JavaScript, and is hidden from assistive technology because the
+    progressbar element already carries the value.
+
+    Context variables required for this template:
+    * percent int Whole number percentage of course completion.
+    * percentlabel string Readable form of the percentage.
+    * unitlabel string Description of the current unit, such as Lesson 1 of 5.
+    * hasunitlabel bool Whether the unit label is known.
+    * progressline string Sentence describing remaining work.
+    * hasline bool Whether the supporting sentence is present.
+    * arialabel string Accessible name of the progress bar.
+
+    Example context (json):
+    {
+        "percent": 20,
+        "percentlabel": "20% complete",
+        "unitlabel": "Lesson 1 of 5",
+        "hasunitlabel": true,
+        "progressline": "Only 4 lessons remaining.",
+        "hasline": true,
+        "arialabel": "Course completion"
+    }
+}}
+<div class="ljy-progress">
+    {{#hasunitlabel}}<p class="ljy-progress__unit">{{unitlabel}}</p>{{/hasunitlabel}}
+    <div class="ljy-progress__track"
+         role="progressbar"
+         aria-label="{{arialabel}}"
+         aria-valuenow="{{percent}}"
+         aria-valuemin="0"
+         aria-valuemax="100"
+         aria-valuetext="{{percentlabel}}"
+         style="--ljy-progress-value: {{percent}}%;">
+        <span class="ljy-progress__fill" aria-hidden="true"></span>
+    </div>
+    <p class="ljy-progress__percent" aria-hidden="true">{{percentlabel}}</p>
+    {{#hasline}}<p class="ljy-progress__text">{{progressline}}</p>{{/hasline}}
+</div>

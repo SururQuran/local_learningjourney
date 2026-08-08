@@ -1,0 +1,44 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_learningjourney/partial_actions
+
+    Button group rendering the ordered page actions. Every action is a real
+    link, so keyboard and screen reader navigation work without any script.
+
+    Context variables required for this template:
+    * actions array Ordered page actions.
+    * actions[].url string Destination of the action.
+    * actions[].label string Visible label of the action.
+    * actions[].primary bool Whether the action is the primary call to action.
+    * actions[].id string Stable identifier used for testing and styling.
+
+    Example context (json):
+    {
+        "actions": [
+            {"url": "https://example.com/mod/page/view.php?id=9", "label": "Continue to Lesson 2", "primary": true, "id": "continue"},
+            {"url": "https://example.com/course/view.php?id=2", "label": "Return to course", "primary": false, "id": "course"}
+        ]
+    }
+}}
+<nav class="ljy-actions">
+    {{#actions}}
+        <a class="ljy-action {{#primary}}ljy-action--primary{{/primary}}{{^primary}}ljy-action--ghost{{/primary}}"
+           href="{{url}}"
+           data-ljy-action="{{id}}">{{label}}</a>
+    {{/actions}}
+</nav>

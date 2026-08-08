@@ -1,0 +1,53 @@
+{{!
+    This file is part of Moodle - http://moodle.org/
+
+    Moodle is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Moodle is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+}}
+{{!
+    @template local_learningjourney/partial_badge
+
+    Badge display, showing badges issued by Moodle or the decorative
+    achievement badge used while criteria driven badges are still pending.
+
+    Context variables required for this template:
+    * badges array Badges to display.
+    * badges[].name string Badge name.
+    * badges[].imageurl string Location of the badge image.
+    * badges[].isreal bool Whether the badge was issued by Moodle.
+
+    Example context (json):
+    {
+        "badges": [
+            {"name": "Unit 1 complete", "imageurl": "https://example.com/badge.png", "isreal": true},
+            {"name": "Achievement unlocked", "imageurl": "", "isreal": false}
+        ]
+    }
+}}
+<ul class="ljy-badges">
+    {{#badges}}
+        <li class="ljy-badge {{^isreal}}ljy-badge--decorative{{/isreal}}">
+            {{#imageurl}}
+                <img class="ljy-badge__image" src="{{imageurl}}" alt="{{name}}">
+            {{/imageurl}}
+            {{^imageurl}}
+                <span class="ljy-badge__medal" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                        <path fill="currentColor" d="M12 2a6 6 0 1 0 6 6 6 6 0 0 0-6-6zm0 10 3.5 9-3.5-2-3.5 2z"/>
+                    </svg>
+                </span>
+            {{/imageurl}}
+            <span class="ljy-badge__name">{{name}}</span>
+        </li>
+    {{/badges}}
+</ul>

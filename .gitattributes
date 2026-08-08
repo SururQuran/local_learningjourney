@@ -1,0 +1,22 @@
+# Keep repository-only infrastructure out of `git archive` exports.
+# This is a convenience for source archives; it is NOT a substitute for
+# building the Moodle plugin ZIP from the plugin directory itself.
+/.github            export-ignore
+/.gitattributes     export-ignore
+/.gitignore         export-ignore
+
+# Normalise line endings so the plugin behaves the same on every platform.
+*.php    text eol=lf
+*.js     text eol=lf
+*.css    text eol=lf
+*.mustache text eol=lf
+*.xml    text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.feature text eol=lf
+*.svg    text eol=lf
+
+# Generated AMD bundles are committed because Moodle loads them at runtime.
+# Mark them so diffs stay readable in review.
+/amd/build/*.min.js      linguist-generated=true
+/amd/build/*.min.js.map  linguist-generated=true
