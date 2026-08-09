@@ -35,12 +35,15 @@ Feature: A learner result is visible only to its owner and permitted staff
     Given I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
     And I press "Attempt quiz"
     And I click on "True" "radio"
-    And I press "Finish attempt"
+    And I follow "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I click on "Submit all and finish" "button" in the "Submit all your answers and finish?" "dialogue"
     Then I should see "Congratulations"
 
   Scenario: An unknown attempt identifier is refused politely
     Given I log in as "student1"
     When I am on the "999999" "local_learningjourney > Result" page
     Then I should see "That quiz attempt could not be found"
+    And I should not see "Debug info"
+    And I should not see "Stack trace"
+    And "Continue" "button" should exist

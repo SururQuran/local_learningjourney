@@ -38,9 +38,9 @@ Feature: The automatic redirect stays cancellable
     And I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
     When I press "Attempt quiz"
     And I click on "True" "radio"
-    And I press "Finish attempt"
+    And I follow "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I click on "Submit all and finish" "button" in the "Submit all your answers and finish?" "dialogue"
     Then I should see "Stay on this page"
     When I press "Stay on this page"
     And I wait "5" seconds

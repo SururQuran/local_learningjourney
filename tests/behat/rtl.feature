@@ -37,8 +37,8 @@ Feature: The Learning Journey page works in right to left languages
     And I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
     When I press "Attempt quiz"
     And I click on "True" "radio"
-    And I press "Finish attempt"
+    And I follow "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I click on "Submit all and finish" "button" in the "Submit all your answers and finish?" "dialogue"
     Then ".ljy-page" "css_element" should exist
     And the "dir" attribute of "html" "css_element" should contain "rtl"

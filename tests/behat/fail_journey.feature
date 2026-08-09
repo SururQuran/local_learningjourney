@@ -35,9 +35,9 @@ Feature: A learner who does not pass is encouraged rather than discouraged
     Given I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
     When I press "Attempt quiz"
     And I click on "False" "radio"
-    And I press "Finish attempt"
+    And I follow "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I click on "Submit all and finish" "button" in the "Submit all your answers and finish?" "dialogue"
     Then I should see "Keep going"
     And I should see "Pass mark"
     And I should see "Attempts remaining"
@@ -50,15 +50,16 @@ Feature: A learner who does not pass is encouraged rather than discouraged
       | fallbackgradepass | 60 | local_learningjourney |
     And I am on the "Unit 1 quiz" "quiz activity" page logged in as "admin"
     And I navigate to "Settings" in current page administration
+    And I expand all fieldsets
     And I set the field "Attempts allowed" to "1"
     And I press "Save and return to course"
     And I log out
     And I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
     When I press "Attempt quiz"
     And I click on "False" "radio"
-    And I press "Finish attempt"
+    And I follow "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I click on "Submit all and finish" "button" in the "Submit all your answers and finish?" "dialogue"
     Then I should see "Keep going"
     And I should not see "Try again"
     And I should see "Return to course"

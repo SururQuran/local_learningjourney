@@ -35,9 +35,9 @@ Feature: The Learning Journey page meets accessibility requirements
     Given I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
     When I press "Attempt quiz"
     And I click on "True" "radio"
-    And I press "Finish attempt"
+    And I follow "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I click on "Submit all and finish" "button" in the "Submit all your answers and finish?" "dialogue"
     Then the page should meet accessibility standards
     And "Continue to Lesson two" "link" should be visible
 
@@ -46,9 +46,9 @@ Feature: The Learning Journey page meets accessibility requirements
     Given I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
     When I press "Attempt quiz"
     And I click on "False" "radio"
-    And I press "Finish attempt"
+    And I follow "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I click on "Submit all and finish" "button" in the "Submit all your answers and finish?" "dialogue"
     Then the page should meet accessibility standards
 
   @javascript
@@ -56,9 +56,9 @@ Feature: The Learning Journey page meets accessibility requirements
     Given I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
     When I press "Attempt quiz"
     And I click on "True" "radio"
-    And I press "Finish attempt"
+    And I follow "Finish attempt ..."
     And I press "Submit all and finish"
-    And I click on "Submit all and finish" "button" in the "Confirmation" "dialogue"
+    And I click on "Submit all and finish" "button" in the "Submit all your answers and finish?" "dialogue"
     And I wait "15" seconds
     Then I should see "Congratulations"
     And I should not see "Stay on this page"

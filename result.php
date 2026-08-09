@@ -33,7 +33,39 @@ use local_learningjourney\output\result_page;
 
 $attemptid = required_param('attempt', PARAM_INT);
 
-$quiz = quiz_adapter::create($attemptid);
+$url = new moodle_url('/local/learningjourney/result.php', ['attempt' => $attemptid]);
+
+require_login();
+
+// A link may outlive the attempt it points at, for instance after the quiz or
+// the attempt has been deleted. That is a normal dead link rather than a fault,
+// so the learner is shown a plain notice instead of an exception page. The
+// message is identical for every visitor and reveals nothing about whether the
+// identifier ever existed. Attempts that do exist are still subject to the
+// ownership and capability checks below.
+try {
+    $quiz = quiz_adapter::create($attemptid);
+} catch (moodle_exception $e) {
+    if ($e->errorcode !== 'error_attemptnotfound') {
+        throw $e;
+    }
+
+    $PAGE->set_url($url);
+    $PAGE->set_context(context_system::instance());
+    $PAGE->set_pagelayout('standard');
+    $PAGE->set_title(get_string('resulttitle', constants::PLUGIN));
+    $PAGE->set_heading(get_string('pluginname', constants::PLUGIN));
+
+    echo $OUTPUT->header();
+    echo $OUTPUT->notification(
+        get_string('error_attemptnotfound', constants::PLUGIN),
+        \core\output\notification::NOTIFY_ERROR
+    );
+    echo $OUTPUT->continue_button(new moodle_url('/my/'));
+    echo $OUTPUT->footer();
+    die();
+}
+
 $course = $quiz->get_course();
 $cm = $quiz->get_cm();
 
@@ -42,7 +74,6 @@ require_login($course, false, $cm);
 $context = $quiz->get_context();
 permission::require_can_view_result($context, $quiz->get_userid());
 
-$url = new moodle_url('/local/learningjourney/result.php', ['attempt' => $attemptid]);
 $PAGE->set_url($url);
 $PAGE->set_cm($cm, $course);
 $PAGE->set_pagelayout('incourse');
