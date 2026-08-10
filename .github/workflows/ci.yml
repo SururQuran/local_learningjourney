@@ -52,6 +52,15 @@ jobs:
         php: ['8.2', '8.3']
         moodle-branch: ['MOODLE_405_STABLE', 'main']
         database: ['pgsql', 'mariadb']
+        exclude:
+          # Moodle main declares "php": ">=8.3.0" in composer.json, and its lock
+          # file pins lcobucci/clock ~8.3.0||~8.4.0||~8.5.0 and
+          # maennchen/zipstream-php ^8.3. Composer therefore cannot resolve that
+          # branch on PHP 8.2, so the combination is impossible rather than
+          # failing. Moodle 4.5 keeps both PHP versions: its own composer.json
+          # requires only >=8.1.0.
+          - php: '8.2'
+            moodle-branch: 'main'
 
     steps:
       - name: Check out the plugin
