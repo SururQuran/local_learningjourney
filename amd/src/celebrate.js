@@ -162,17 +162,19 @@ const drawParticle = (context, particle, alpha) => {
 /**
  * Run the particle animation until it completes, then remove the canvas.
  *
+ * The decorative animation is not pending initialisation, so it does not hold
+ * the module's Pending promise; requestAnimationFrame is suspended in a
+ * background tab and would otherwise leave it unresolved.
+ *
  * @param {Object} config Effect configuration supplied by the server.
- * @param {Pending} pending Pending promise released once the animation ends.
  * @returns {void}
  */
-const animate = (config, pending) => {
+const animate = (config) => {
     const canvas = createCanvas();
     const context = canvas.getContext('2d');
 
     if (!context) {
         canvas.remove();
-        pending.resolve();
         return;
     }
 
@@ -181,7 +183,6 @@ const animate = (config, pending) => {
 
     if (particles.length === 0) {
         canvas.remove();
-        pending.resolve();
         return;
     }
 
@@ -194,7 +195,6 @@ const animate = (config, pending) => {
 
         if (elapsed >= MAX_DURATION) {
             canvas.remove();
-            pending.resolve();
             return;
         }
 
@@ -259,5 +259,6 @@ export const init = (config) => {
         return;
     }
 
-    animate(settings, pending);
+    animate(settings);
+    pending.resolve();
 };

@@ -46,7 +46,13 @@ require_login();
 try {
     $quiz = quiz_adapter::create($attemptid);
 } catch (moodle_exception $e) {
-    if ($e->errorcode !== 'error_attemptnotfound') {
+    // A missing record raised by the database layer means the same thing as our
+    // own not-found code: the link points at an attempt that is no longer there.
+    // Anything else is a real fault and must keep its normal error page.
+    $notfound = $e->errorcode === 'error_attemptnotfound'
+        || $e instanceof dml_missing_record_exception;
+
+    if (!$notfound) {
         throw $e;
     }
 

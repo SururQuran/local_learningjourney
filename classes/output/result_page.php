@@ -437,11 +437,14 @@ class result_page implements renderable, templatable {
     /**
      * Format a percentage for display.
      *
+     * Trailing zeros are kept so that every percentage on the page carries the
+     * same precision, and a configured pass mark of 80 reads as 80.0%.
+     *
      * @param float $value The percentage.
      * @return string The formatted percentage.
      */
     protected function percent(float $value): string {
-        return format_float($value, 1, true, true) . '%';
+        return format_float($value, 1, true, false) . '%';
     }
 
     /**

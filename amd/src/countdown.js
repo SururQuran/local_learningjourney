@@ -79,7 +79,6 @@ export const init = (seconds, url) => {
         document.removeEventListener('focusin', cancel, true);
         document.removeEventListener('visibilitychange', onVisibilityChange);
         container.remove();
-        pending.resolve();
     };
 
     /**
@@ -106,7 +105,6 @@ export const init = (seconds, url) => {
                 window.clearInterval(timer);
                 timer = null;
             }
-            pending.resolve();
             window.location.assign(url);
             return;
         }
@@ -132,4 +130,10 @@ export const init = (seconds, url) => {
     document.addEventListener('visibilitychange', onVisibilityChange);
 
     timer = window.setInterval(tick, TICK);
+
+    // Initialisation is finished. The countdown itself is a visible, user
+    // cancellable timer rather than pending work, so the Pending is released
+    // here; holding it for the whole countdown would block every test that
+    // waits for JavaScript to settle.
+    pending.resolve();
 };
