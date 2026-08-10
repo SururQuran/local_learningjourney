@@ -16,6 +16,10 @@
 
 namespace local_learningjourney\local;
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->libdir . '/gradelib.php');
+
 use cm_info;
 use grade_grade;
 use grade_item;

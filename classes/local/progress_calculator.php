@@ -16,6 +16,10 @@
 
 namespace local_learningjourney\local;
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->libdir . '/completionlib.php');
+
 use cm_info;
 use completion_info;
 use core_completion\progress;

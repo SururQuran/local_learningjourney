@@ -16,6 +16,11 @@
 
 namespace local_learningjourney\form;
 
+defined('MOODLE_INTERNAL') || die();
+
+require_once($CFG->libdir . '/formslib.php');
+require_once($CFG->dirroot . '/local/learningjourney/lib.php');
+
 use local_learningjourney\local\colour;
 use local_learningjourney\local\constants;
 use local_learningjourney\local\settings_resolver;
