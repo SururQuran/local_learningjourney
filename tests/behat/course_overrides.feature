@@ -33,8 +33,9 @@ Feature: A course may customise or switch off its Learning Journey
   Scenario: A teacher sets a custom success message for one course
     Given I am on the "Course 1" course page logged in as "teacher1"
     When I navigate to "Learning Journey" in current page administration
-    And I set the field "Use site default" in the "Success heading" "fieldset" to "0"
-    And I set the field "Success heading" to "Ma sha Allah"
+    And I expand all fieldsets
+    And I set the field "id_override_successtitle" to "0"
+    And I set the field "id_successtitle" to "Ma sha Allah"
     And I press "Save changes"
     Then I should see "Changes saved"
 
@@ -42,8 +43,9 @@ Feature: A course may customise or switch off its Learning Journey
   Scenario: The learner sees the course specific message
     Given I am on the "Course 1" course page logged in as "teacher1"
     And I navigate to "Learning Journey" in current page administration
-    And I set the field "Use site default" in the "Success heading" "fieldset" to "0"
-    And I set the field "Success heading" to "Ma sha Allah"
+    And I expand all fieldsets
+    And I set the field "id_override_successtitle" to "0"
+    And I set the field "id_successtitle" to "Ma sha Allah"
     And I press "Save changes"
     And I log out
     And I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
@@ -59,8 +61,9 @@ Feature: A course may customise or switch off its Learning Journey
   Scenario: A course may switch the plugin off entirely
     Given I am on the "Course 1" course page logged in as "teacher1"
     And I navigate to "Learning Journey" in current page administration
-    And I set the field "Use site default" in the "Enable Learning Journey" "fieldset" to "0"
-    And I set the field "Enable Learning Journey" to "0"
+    And I expand all fieldsets
+    And I set the field "id_override_enabled" to "0"
+    And I set the field "id_enabled" to "0"
     And I press "Save changes"
     And I log out
     And I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
