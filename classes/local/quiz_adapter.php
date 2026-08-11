@@ -103,6 +103,24 @@ class quiz_adapter {
     }
 
     /**
+     * Determine whether an exception means the attempt simply is not there.
+     *
+     * Recognised codes are this plugin's own not-found code and the codes the
+     * database layer raises for a missing record. Anything else is a genuine
+     * fault and must keep Moodle's normal error reporting.
+     *
+     * @param moodle_exception $e The exception raised while loading an attempt.
+     * @return bool True when the attempt, or the data it depends on, is gone.
+     */
+    public static function is_missing_attempt(moodle_exception $e): bool {
+        return in_array(
+            $e->errorcode,
+            ['error_attemptnotfound', 'invalidrecord', 'invalidrecordunknown'],
+            true
+        );
+    }
+
+    /**
      * Return the course the quiz belongs to.
      *
      * @return stdClass The course record.
