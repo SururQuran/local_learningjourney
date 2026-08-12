@@ -9,4 +9,4 @@ jobs:
     steps:
       - name: Probe download.moodle.org
         run: |
-            curl -sSI --max-time 30 https://download.moodle.org/langpack/4.5/languages.md5 | head -1 || echo "UNREACHABLE"
+            curl -sSIL --max-time 30 https://download.moodle.org/langpack/4.5/languages.md5 | grep -E '^HTTP/' || echo "UNREACHABLE"
