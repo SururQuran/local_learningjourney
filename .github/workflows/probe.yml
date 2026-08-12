@@ -1,0 +1,12 @@
+name: Langpack probe
+
+on:
+  workflow_dispatch:
+
+jobs:
+  probe:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Probe download.moodle.org
+        run: |
+            curl -sSI --max-time 30 https://download.moodle.org/langpack/4.5/languages.md5 | head -1 || echo "UNREACHABLE"
