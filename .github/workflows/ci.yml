@@ -126,6 +126,20 @@ jobs:
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci phpunit --fail-on-warning
 
+      - name: Install the Arabic language pack for the Behat site
+        if: ${{ !cancelled() }}
+        env:
+          BEHAT_CLI: 1
+        run: |
+          # moodle-plugin-ci relays MOODLE_DIR through ci/.env, which only its
+          # own binary loads, so it must be sourced before calling PHP directly.
+          set -a && . ci/.env && set +a
+          php -r '
+            define("CLI_SCRIPT", true);
+            require(getenv("MOODLE_DIR")."/config.php");
+            (new \tool_langimport\controller())->install_languagepacks("ar");
+          '
+
       - name: Behat features
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci behat --profile chrome --dump
