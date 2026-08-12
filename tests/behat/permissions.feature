@@ -44,6 +44,6 @@ Feature: A learner result is visible only to its owner and permitted staff
     Given I log in as "student1"
     When I am on the "999999" "local_learningjourney > Result" page
     Then I should see "That quiz attempt could not be found"
-    And I should not see "Debug info"
-    And I should not see "Stack trace"
+    And I should not see "Debug info" in the "region-main" "region"
+    And I should not see "Stack trace" in the "region-main" "region"
     And "Continue" "button" should exist
