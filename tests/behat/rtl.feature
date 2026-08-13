@@ -12,10 +12,14 @@ Feature: The Learning Journey page works in right to left languages
       | username | firstname | lastname | email             |
       | student1 | Sam       | Learner  | sam@example.com   |
       | teacher1 | Tara      | Teach    | tara@example.com  |
+    And the following "users" exist:
+      | username | firstname | lastname | email             | lang |
+      | rtluser  | Rania     | Learner  | rania@example.com | ar   |
     And the following "course enrolments" exist:
       | user     | course | role           |
       | student1 | C1     | student        |
       | teacher1 | C1     | editingteacher |
+      | rtluser  | C1     | student        |
     And the following "activities" exist:
       | activity | name        | course | idnumber | section | grade | attempts |
       | quiz     | Unit 1 quiz | C1     | quiz1    | 1       | 100   | 3        |
@@ -34,7 +38,7 @@ Feature: The Learning Journey page works in right to left languages
   Scenario: The result page renders right to left in Arabic
     Given the following config values are set as admin:
       | lang | ar |
-    And I am on the "Unit 1 quiz" "quiz activity" page logged in as "student1"
+    And I am on the "Unit 1 quiz" "quiz activity" page logged in as "rtluser"
     When I press "Attempt quiz"
     And I click on "True" "radio"
     And I follow "Finish attempt ..."
