@@ -90,6 +90,28 @@ jobs:
           DB: ${{ matrix.database }}
           MOODLE_BRANCH: ${{ matrix.moodle-branch }}
 
+      - name: Install Arabic language pack
+        run: |
+          php <<'PHP'
+          <?php
+          define('CLI_SCRIPT', true);
+          require getcwd() . '/moodle/config.php';
+          require_once($CFG->libdir . '/componentlib.class.php');
+
+          $installer = new lang_installer('ar');
+          $results = $installer->run();
+
+          if (($results['ar'] ?? null) === lang_installer::RESULT_DOWNLOADERROR) {
+              fwrite(STDERR, 'Unable to download Moodle Arabic language pack from ' . $installer->lang_pack_url('ar') . PHP_EOL);
+              exit(1);
+          }
+
+          if (!in_array($results['ar'] ?? null, [lang_installer::RESULT_INSTALLED, lang_installer::RESULT_UPTODATE], true)) {
+              fwrite(STDERR, 'Unexpected Arabic language pack installation result: ' . ($results['ar'] ?? 'missing') . PHP_EOL);
+              exit(1);
+          }
+          PHP
+
       - name: PHP Lint
         if: ${{ !cancelled() }}
         run: moodle-plugin-ci phplint
